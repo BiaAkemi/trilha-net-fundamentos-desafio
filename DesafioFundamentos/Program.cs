@@ -7,7 +7,7 @@ decimal precoInicial = 0;
 decimal precoPorHora = 0;
 
 Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
+                "Digite o preço inicial:");
 
  // Loop até que o usuário insira um valor válido
 while (!decimal.TryParse(Console.ReadLine(), out precoInicial))
@@ -26,7 +26,6 @@ while (!decimal.TryParse(Console.ReadLine(), out precoInicial))
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
 
-string opcao = string.Empty;
 bool exibirMenu = true;
 
 // Realiza o loop do menu

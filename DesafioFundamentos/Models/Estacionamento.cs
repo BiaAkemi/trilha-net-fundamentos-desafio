@@ -17,7 +17,7 @@ namespace DesafioFundamentos.Models
         // Verificando se a placa é válida (veículos BR - placa antiga e nova)
         static bool IsValidPlaca(string placa)
         {
-            string pattern = @"^[A-Z]{3}[0-9][A-Za-z0-9][0-9]{2}$";
+            string pattern = @"^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$";
             return Regex.IsMatch(placa, pattern);
         }
 
