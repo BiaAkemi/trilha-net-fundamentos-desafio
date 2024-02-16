@@ -1,68 +1,73 @@
 ﻿using DesafioFundamentos.Models;
 
-// Coloca o encoding para UTF8 para exibir acentuação
-Console.OutputEncoding = System.Text.Encoding.UTF8;
-
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
-
-Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                "Digite o preço inicial:");
-
- // Loop até que o usuário insira um valor válido
-while (!decimal.TryParse(Console.ReadLine(), out precoInicial))
-    {
-        Console.WriteLine("Entrada inválida. Por favor, insira um valor decimal válido para o preço inicial:");
-    }
-
-    Console.WriteLine("Agora digite o preço por hora:");
-
-// Loop até que o usuário insira um valor válido
-    while (!decimal.TryParse(Console.ReadLine(), out precoPorHora))
-    {
-    Console.WriteLine("Entrada inválida. Por favor, insira um valor decimal válido para o preço por hora:");
-    }
-
-// Instancia a classe Estacionamento, já com os valores obtidos anteriormente
-Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
-
-bool exibirMenu = true;
-
-// Realiza o loop do menu
-while (exibirMenu)
+class Program
 {
-    Console.Clear();
-    Console.WriteLine("Digite a sua opção:");
-    Console.WriteLine("1 - Cadastrar veículo");
-    Console.WriteLine("2 - Remover veículo");
-    Console.WriteLine("3 - Listar veículos");
-    Console.WriteLine("4 - Encerrar");
-
-    switch (Console.ReadLine())
+    static void Main()
     {
-        case "1":
-            es.AdicionarVeiculo();
-            break;
+        // Coloca o encoding para UTF8 para exibir acentuação
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
+        
+        Console.WriteLine("Seja bem vindo ao sistema de estacionamento!");
 
-        case "2":
-            es.RemoverVeiculo();
-            break;
+        decimal precoInicial = ObterDecimalInput("Digite o preço inicial:");
+        decimal precoPorHora = ObterDecimalInput("Agora digite o preço por hora:");
 
-        case "3":
-            es.ListarVeiculos();
-            break;
+        // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
+        Estacionamento estacionamento = new Estacionamento(precoInicial, precoPorHora);
 
-        case "4":
-            exibirMenu = false;
-            break;
+        bool exibirMenu = true;
 
-        default:
-            Console.WriteLine("Opção inválida");
-            break;
+        // Realiza o loop do menu
+        while (exibirMenu)
+        {
+            Console.Clear();
+            Console.WriteLine("Digite a sua opção:");
+            Console.WriteLine("1 - Cadastrar veículo");
+            Console.WriteLine("2 - Remover veículo");
+            Console.WriteLine("3 - Listar veículos");
+            Console.WriteLine("4 - Encerrar");
+
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    estacionamento.AdicionarVeiculo();
+                    break;
+
+                case "2":
+                    estacionamento.RemoverVeiculo();
+                    break;
+
+                case "3":
+                    estacionamento.ListarVeiculos();
+                    break;
+
+                case "4":
+                    exibirMenu = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Opção inválida");
+                    break;
+            }
+
+            Console.WriteLine("Pressione uma tecla para continuar");
+            Console.ReadLine();
+        }
+
+        Console.WriteLine("O programa se encerrou");
     }
 
-    Console.WriteLine("Pressione uma tecla para continuar");
-    Console.ReadLine();
+    private static decimal ObterDecimalInput(string mensagem)
+    {
+        decimal valor;
+        while (true)
+        {
+            Console.WriteLine(mensagem);
+            if (decimal.TryParse(Console.ReadLine(), out valor))
+            {
+                return valor;
+            }
+            Console.WriteLine("Entrada inválida. Por favor, insira um valor decimal válido.");
+        }
+    }
 }
-
-Console.WriteLine("O programa se encerrou");
