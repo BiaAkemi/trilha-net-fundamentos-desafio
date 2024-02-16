@@ -110,32 +110,19 @@ namespace DesafioFundamentos.Models
             return veiculos.Any(v => v.NumeroVaga == numeroVaga);
         }
 
-        public void RemoverVeiculo()
+                public void RemoverVeiculo()
         {
             Console.WriteLine("Digite a placa do veículo para remover:");
             string placa = Console.ReadLine();
-            string placaMaiuscula = placa.ToUpper();
-
-            if (Veiculo.IsValidPlaca(placaMaiuscula))
+            
+            if (Veiculo.IsValidPlaca(placa))
             {
+                string placaMaiuscula = placa.ToUpper();
                 Veiculo veiculo = veiculos.FirstOrDefault(v => v.Placa == placaMaiuscula);
 
                 if (veiculo != null)
                 {
-                    Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
-                    if (int.TryParse(Console.ReadLine(), out int horas) && horas >= 0)
-                    {
-                        decimal valorTotal = precoInicial + precoPorHora * horas;
-
-                        LiberarVaga(veiculo.NumeroVaga);
-                        veiculos.Remove(veiculo);
-
-                        Console.WriteLine($"O veículo {veiculo.Placa} foi removido e o preço total foi de: R$ {valorTotal}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Quantidade de horas inválida. Certifique-se de inserir um número válido.");
-                    }
+                    RemoverVeiculoEExibirPreco(veiculo);
                 }
                 else
                 {
@@ -145,6 +132,25 @@ namespace DesafioFundamentos.Models
             else
             {
                 Console.WriteLine("Placa inválida. Certifique-se de inserir uma placa válida.");
+            }
+        }
+
+        private void RemoverVeiculoEExibirPreco(Veiculo veiculo)
+        {
+            Console.WriteLine("Digite a quantidade de horas que o veículo permaneceu estacionado:");
+
+            if (int.TryParse(Console.ReadLine(), out int horas) && horas >= 0)
+            {
+                decimal valorTotal = precoInicial + precoPorHora * horas;
+
+                LiberarVaga(veiculo.NumeroVaga);
+                veiculos.Remove(veiculo);
+
+                Console.WriteLine($"O veículo {veiculo.Placa} foi removido e o preço total foi de: R$ {valorTotal}");
+            }
+            else
+            {
+                Console.WriteLine("Quantidade de horas inválida. Certifique-se de inserir um número válido.");
             }
         }
 

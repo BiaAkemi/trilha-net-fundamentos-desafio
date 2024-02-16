@@ -17,16 +17,15 @@ namespace DesafioFundamentos.Models
                 throw new ArgumentException("Placa inválida! Tente novamente.");
             }
 
-            Placa = placa; 
+            Placa = placa;
             NumeroVaga = numeroVaga;
         }
-
 
         public static bool IsValidPlaca(string placa)
         {
             placa = placa.ToUpper();
             string pattern = @"^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$";
-            return System.Text.RegularExpressions.Regex.IsMatch(placa, pattern);
+            return Regex.IsMatch(placa, pattern);
         }
     }
 }
